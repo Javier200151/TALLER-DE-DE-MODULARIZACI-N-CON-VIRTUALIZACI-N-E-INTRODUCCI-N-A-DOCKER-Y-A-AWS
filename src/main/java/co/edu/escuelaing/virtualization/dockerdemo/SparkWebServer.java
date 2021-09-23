@@ -9,6 +9,8 @@ import static spark.Spark.port;
 import static spark.Spark.get;
 import static spark.Spark.*;
 
+import co.edu.escuelaing.virtualization.dockerdemo.Connection;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
@@ -33,11 +35,10 @@ public class SparkWebServer {
           get("/testMongo", (req,res) ->{
             try{
                 StringBuilder d = new StringBuilder();
-
+                System.out.println(req.queryParams("string"));
                 for (String[] s: db.getNames()){
-                    String[] lol = s[0].split("-");
-                    System.out.println(Arrays.toString(lol));
-                    d.append("  <tr>\n" + "    <td>").append(lol[0]).append("</td>\n").append("<td> || ").append(s[1]).append("</td>").append("<td> ||" + lol[1] ).append( "</td> </tr>");
+                    System.out.println(Arrays.toString(s));
+                    d.append("  <tr>\n" + "    <td>").append(s[0]).append("</td>\n").append("<td> ").append(s[1]).append( "</td> </tr>");
                 }
                 String message ="<!DOCTYPE html>\n"
                         + "<html>\n"
@@ -46,11 +47,11 @@ public class SparkWebServer {
                         + "<title>AREP</title>\n"
                         + "</head>\n"
                         + "<body>\n"
-                        + "<h1>TEST: </h1>\n"
+                        + "<h1>AREPMongo: </h1>\n"
                         + "<table>\n" +
                         "  <tr>\n" +
-                        "    <th>Name</th>\n" +
-                        "<th>Date</th>\n" +
+                        "    <th>Cadena</th>\n" +
+                        "    <th>Fecha</th>\n" +
                         "  </tr>\n"
                         + d.toString()
                         + "</body>\n"
@@ -62,6 +63,17 @@ public class SparkWebServer {
                 return "Error";
             }
           }); 
+
+        get("/testInsert",(req,res) -> {
+            try {
+                System.out.println(req.queryParams("string"));
+                db.insertData(req.queryParams("string"));
+                return "La palabra"+req.queryParams("string")+" fue añadida con exito a la base de datos";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "Error al añadir";
+            }
+        });
     }
 
     private static int getPort() {

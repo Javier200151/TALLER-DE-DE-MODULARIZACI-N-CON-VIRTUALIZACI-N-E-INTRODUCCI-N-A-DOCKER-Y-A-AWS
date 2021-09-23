@@ -2,6 +2,7 @@ package co.edu.escuelaing.virtualization.dockerdemo;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.ConnectionString;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -9,14 +10,16 @@ import org.bson.Document;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
+
 import org.bson.Document;
 
 public class Connection {
     MongoClient mongoClient;
 
     public Connection() {
-        String connectionString = System.getProperty("mongodb://localhost:27017");
-        mongoClient = MongoClients.create(connectionString);
+        //String connectionString = System.getProperty("mongodb://localhost:27017");
+        mongoClient = MongoClients.create(new ConnectionString("mongodb://localhost:27017"));
     }
 
     public ArrayList<String[]> getNames(){
@@ -27,10 +30,21 @@ public class Connection {
         ArrayList<String[]> results = new ArrayList<>();
         fit.into(docs);
         for (Document doc : docs) {
-            if (doc.get("mensaje")!= null && doc.get("fecha")!=null){
-                results.add(new String[]{doc.get("mensaje").toString(), doc.get("fecha").toString()});
+            if (doc.get("cadena")!= null && doc.get("fecha")!=null){
+                results.add(new String[]{doc.get("cadena").toString(), doc.get("fecha").toString()});
             }
         }
         return results;
+    }
+
+    public void insertData(String cadena){
+        Date fecha = new Date();
+        System.out.println("WTF  db askdsadsa "+ cadena);
+        MongoDatabase database = mongoClient.getDatabase("AREPMongo");
+        MongoCollection<Document> collection =database.getCollection("logs");
+        Document document=new Document();
+        document.put("cadena",cadena);
+        document.put("fecha",fecha.toString());
+        collection.insertOne(document);
     }
 }
