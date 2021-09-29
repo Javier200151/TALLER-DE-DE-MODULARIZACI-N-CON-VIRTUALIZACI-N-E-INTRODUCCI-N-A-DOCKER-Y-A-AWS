@@ -28,6 +28,7 @@ public class SparkWebServer {
     
     public static void main(String... args){
           Connection db = new Connection();
+          ArrayList<String[]> result =new ArrayList<String[]>();;
           staticFileLocation("/public");
           port(getPort());
           get("/", (req,res) -> {res.redirect("/index.html");
@@ -36,12 +37,22 @@ public class SparkWebServer {
             try{
                 StringBuilder d = new StringBuilder();
                 System.out.println(req.queryParams("string"));
-                for (String[] s: db.getNames()){
+                
+                /*for(String[] s: db.getNames()){
+                    result.add(Arrays.toString(s)); 
+                }
+                return result;*/
+                result.clear();
+                ArrayList<String[]> help =db.getNames();
+                for(int i = help.size()-1; i > help.size()-11; i--){
+                    result.add(help.get(i));
+                }
+                for (String[] s: result){
                     System.out.println(Arrays.toString(s));
                     d.append("  <tr>\n" + "    <td>").append(s[0]).append("</td>\n").append("<td> ").append(s[1]).append( "</td> </tr>");
                 }
                 String message ="<!DOCTYPE html>\n"
-                        + "<html>\n"
+                      + "<html>\n"
                         + "<head>\n"
                         + "<meta charset=\"UTF-8\">\n"
                         + "<title>AREP</title>\n"
@@ -55,7 +66,7 @@ public class SparkWebServer {
                         "  </tr>\n"
                         + d.toString()
                         + "</body>\n"
-                        + "</html>\n";
+                        + "</html>\n";  
 
                 return message;
             }catch (Exception e){

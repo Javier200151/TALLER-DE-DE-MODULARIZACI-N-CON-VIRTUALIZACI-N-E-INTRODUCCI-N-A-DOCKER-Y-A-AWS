@@ -8,11 +8,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
-
-import org.bson.Document;
 
 public class Connection {
     MongoClient mongoClient;
@@ -39,7 +36,7 @@ public class Connection {
 
     public void insertData(String cadena){
         Date fecha = new Date();
-        System.out.println("WTF  db askdsadsa "+ cadena);
+        System.out.println("Inserta: "+ cadena);
         MongoDatabase database = mongoClient.getDatabase("AREPMongo");
         MongoCollection<Document> collection =database.getCollection("logs");
         Document document=new Document();
