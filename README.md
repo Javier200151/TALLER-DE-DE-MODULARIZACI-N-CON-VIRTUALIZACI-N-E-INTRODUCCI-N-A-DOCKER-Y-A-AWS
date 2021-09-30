@@ -35,3 +35,37 @@ Ultimos 10 Logs
 AWS Despliegue
 
 ![](img/aws.PNG)
+
+## Instrucciones
+
+1. Clonar el repositorio
+
+```
+git clone https://github.com/Javier200151/TALLER-DE-DE-MODULARIZACI-N-CON-VIRTUALIZACI-N-E-INTRODUCCI-N-A-DOCKER-Y-A-AWS.git
+```
+
+2. Compilar/Construir el proyecto
+
+```
+mvn clean install
+```
+
+3. Ejecutar el docker compose
+
+```
+docker-compose up -d
+```
+
+4. Ahora la aplicación deberia funcionar al correrla con
+
+```
+java -cp "target/classes:target/dependency/*" co.edu.escuelaing.virtualization.dockerdemo.SparkWebServer
+```
+
+## Arquitectura
+
+![](roundrobin.PNG)
+
+Esta arquitectura es a lo que se refiere a el APP RoundRobin.
+El usuario se comunica con la instacia RoundRobin, lo distrubuye a traves de las tres instancias que
+tiene LogService y por ultimos este componente se comunica con mongodb, nuestra base de datos
