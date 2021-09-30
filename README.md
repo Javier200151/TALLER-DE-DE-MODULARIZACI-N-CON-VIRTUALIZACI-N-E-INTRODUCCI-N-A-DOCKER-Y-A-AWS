@@ -64,7 +64,7 @@ java -cp "target/classes:target/dependency/*" co.edu.escuelaing.virtualization.d
 
 ## Arquitectura
 
-![](roundrobin.PNG)
+![](img/roundrobin.PNG)
 
 Esta arquitectura es a lo que se refiere a el APP RoundRobin.
 El usuario se comunica con la instacia RoundRobin, lo distrubuye a traves de las tres instancias que
