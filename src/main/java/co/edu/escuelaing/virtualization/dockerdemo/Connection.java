@@ -16,7 +16,7 @@ public class Connection {
 
     public Connection() {
         //String connectionString = System.getProperty("mongodb://localhost:27017");
-        mongoClient = MongoClients.create(new ConnectionString("mongodb://ec2-3-85-112-186.compute-1.amazonaws.com:27017"));
+        mongoClient = MongoClients.create(new ConnectionString("mongodb://localhost:27017"));
     }
 
     public ArrayList<String[]> getNames(){

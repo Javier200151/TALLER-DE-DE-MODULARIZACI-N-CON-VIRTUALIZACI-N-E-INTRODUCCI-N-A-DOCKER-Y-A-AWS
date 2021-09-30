@@ -44,8 +44,15 @@ public class SparkWebServer {
                 return result;*/
                 result.clear();
                 ArrayList<String[]> help =db.getNames();
-                for(int i = help.size()-1; i > help.size()-11; i--){
-                    result.add(help.get(i));
+                
+                if(help.size()>10){
+                    for(int i = help.size()-1; i > help.size()-11; i--){
+                        result.add(help.get(i));
+                    }
+                }else{
+                    for(int i=0;i<help.size();i++){
+                        result.add(help.get(i));
+                    }
                 }
                 for (String[] s: result){
                     System.out.println(Arrays.toString(s));
