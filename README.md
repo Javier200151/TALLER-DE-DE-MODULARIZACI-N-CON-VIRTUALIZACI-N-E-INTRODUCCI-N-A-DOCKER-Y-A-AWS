@@ -12,6 +12,8 @@ el contenedor que se creo en una maquina virtual en AWS con Docker instalado
 * Maven - Gestor de dependencias
 * BootStrap
 
+## Docker https://hub.docker.com/repository/docker/javier3005/firstwebappspark
+
 ## Prerequisites
 * Docker - Container Manager
 * Java 8 - Development Environment
